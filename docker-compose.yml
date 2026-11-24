@@ -1,0 +1,35 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: notesphere-mysql
+    environment:
+      MYSQL_DATABASE: notesphere
+      MYSQL_USER: notesphere
+      MYSQL_PASSWORD: notesphere-local-password
+      MYSQL_ROOT_PASSWORD: local-root-password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-unotesphere", "-pnotesphere-local-password"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  app:
+    build: .
+    container_name: notesphere-app
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      PORT: 8000
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/notesphere?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: notesphere
+      SPRING_DATASOURCE_PASSWORD: notesphere-local-password
+    ports:
+      - "8000:8000"
+
+volumes:
+  mysql-data:
