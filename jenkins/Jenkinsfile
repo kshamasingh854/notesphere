@@ -8,7 +8,12 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                echo 'Checking out source code from GitHub'
+
+                git branch: 'main',
+                    credentialsId: 'github-private',
+                    url: 'https://github.com/kshamasingh854/django-notes-app.git'
+
             }
         }
 
