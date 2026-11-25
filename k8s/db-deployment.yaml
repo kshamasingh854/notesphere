@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notesphere-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notesphere-mysql
+  template:
+    metadata:
+      labels:
+        app: notesphere-mysql
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: worker1
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: notesphere-db-secret
+                  key: MYSQL_ROOT_PASSWORD
+            - name: MYSQL_DATABASE
+              value: notesphere
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: notesphere-db-secret
+                  key: DB_USER
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: notesphere-db-secret
+                  key: DB_PASSWORD
+          volumeMounts:
+            - name: mysql-data
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-data
+          hostPath:
+            path: /data/notesphere-mysql
+            type: DirectoryOrCreate
