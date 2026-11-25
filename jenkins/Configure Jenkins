@@ -1,0 +1,28 @@
+* Jenkins Agent
+
+Your AlmaLinux Jenkins Agent needs:
+- Java 21
+- Maven 3.9 or a configured Jenkins Maven tool
+- Docker CLI and permission to access the Docker daemon
+- kubectl
+- Network access to GitHub, Docker Hub, and the Kubernetes API
+- A kubeconfig file that can authenticate to the cluster
+
+In Jenkins, configure the agent with a label. The example pipeline below uses almalinux-agent;
+use your actual agent label if it is different.
+
+*Jenkins credentials
+In Manage Jenkins → Credentials, add:
+1. Docker Hub credential
+   - Kind: Username with password
+   - ID: dockerhub-credentials
+   - Username: your Docker Hub username
+   - Password: your Docker Hub access token
+2. Kubeconfig file
+   - Kind: Secret file
+   - ID: kubeconfig
+   - File: the kubeconfig that can access your cluster
+
+The kubeconfig must point to a Kubernetes API address reachable from the Jenkins Agent. 
+If it contains 127.0.0.1 or localhost, it will refer to the Jenkins Agent itself, not the Kubernetes control plane. 
+Use the reachable control-plane IP or DNS name and ensure the API server certificate accepts that address.
