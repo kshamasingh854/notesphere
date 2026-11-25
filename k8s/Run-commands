@@ -1,0 +1,11 @@
+On the worker node, create the MySQL data directory:
+sudo mkdir -p /data/notesphere-mysql
+sudo chmod 777 /data/notesphere-mysql
+
+
+kubectl apply -f k8s/db-secret.yaml
+kubectl apply -f k8s/db-deployment.yaml
+kubectl apply -f k8s/db-service.yaml
+
+kubectl get pods
+kubectl get service db-cont
