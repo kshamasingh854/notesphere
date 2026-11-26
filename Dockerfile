@@ -1,12 +1,18 @@
+# Build the Spring Boot application
 FROM maven:3.9-eclipse-temurin-21 AS build
 WORKDIR /workspace
+
 COPY pom.xml .
 COPY src ./src
+
 RUN mvn -B -DskipTests package
 
+# Create the runtime image
 FROM eclipse-temurin:21-jre
 WORKDIR /app
+
 COPY --from=build /workspace/target/notesphere.jar app.jar
+
 EXPOSE 8000
-ENV PORT=8000
-ENTRYPOINT ["java","-jar","/app/app.jar"]
+
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
