@@ -12,7 +12,7 @@ pipeline {
 
                 git branch: 'main',
                     credentialsId: 'github-private',
-                    url: 'https://github.com/kshamasingh854/django-notes-app.git'
+                    url: 'https://github.com/kshamasingh854/notesphere.git'
 
             }
         }
