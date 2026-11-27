@@ -107,7 +107,7 @@ The Jenkins Controller manages the pipeline, while the Jenkins Agent runs the pi
 
 The screenshot below shows the pipeline stages completed successfully.
 
-jenkins-pipeline.png
+![Successful Jenkins pipeline](jenkins-pipeline.png)
 
 ## 7. Docker Image
 
