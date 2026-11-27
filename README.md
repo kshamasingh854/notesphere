@@ -201,7 +201,7 @@ I access the application using the worker node IP and NodePort:
 
 ### NoteSphere Running in the Browser
 
-![NoteSphere application running in the browser](screenshots/notesphere-browser.png)
+![NoteSphere application running in the browser](notesphere-browser.png)
 
 ## 11. What I Learned
 
