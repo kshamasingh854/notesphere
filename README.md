@@ -145,7 +145,7 @@ The database username and password are provided to the application through a Kub
 
 The screenshot shows the NoteSphere Deployment ready, the application and database Pods running on the worker node, and the rollout completed successfully.
 
-![Kubernetes deployment and Pod status](screenshots/kubernetes-status.png)
+![Kubernetes deployment and Pod status](kubernetes-status.png)
 
 ## 9. How I Verify the Deployment
 
